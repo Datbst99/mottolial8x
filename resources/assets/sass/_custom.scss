@@ -1,0 +1,39 @@
+.btn-default {
+    border: 1px solid rgba(60, 60, 60, 0.26);
+}
+
+.btn-rounded-default {
+    border: 1px solid rgba(60, 60, 60, 0.26);
+    border-radius: 50px;
+    padding: 5px 15px;
+}
+
+.add-classify {
+    border: 2px dashed rgba(60, 60, 60, 0.26);
+    color: rgba(60, 60, 60, 0.26);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 50px;
+    font-size: 24px;
+    margin: 25px auto 0 auto;
+    cursor: pointer;
+}
+
+.wp-classify {
+    align-items: center;
+    margin-bottom: 15px;
+    .item-add {
+        width: calc(100% / 4 - 20px);
+    }
+    .delete-item {
+        width: 30px;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+}
