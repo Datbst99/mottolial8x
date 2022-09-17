@@ -40,4 +40,69 @@ class Product extends Model
     protected $table = 'products';
 
     protected $guarded = ['id'];
+
+    public function classify()
+    {
+        return $this->hasMany(ProductClassify::class, 'product_id');
+    }
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'create_by');
+    }
+
+    public function createBy()
+    {
+        if($this->user) {
+            return $this->user->name;
+        }
+
+        return '';
+    }
+
+    public function classifyName()
+    {
+        $arr = $this->classify()->pluck('name')->toArray();
+
+
+        return implode(', ', $arr);
+    }
+
+    public function classifyPrice()
+    {
+        $minPrice = $this->classify()->orderBy('price')->first();
+
+        $maxPrice = $this->classify()->orderByDesc('price')->first();
+
+        $showPrice = number_format($minPrice->price);
+
+        if($maxPrice) {
+            $showPrice = $showPrice . ' - ' . number_format($maxPrice->price);
+        }
+
+        return $showPrice;
+    }
+
+    public function classifySalePrice()
+    {
+        $minPrice = $this->classify()->orderBy('sale_price')->first();
+
+        $maxPrice = $this->classify()->orderByDesc('sale_price')->first();
+
+        $showPrice = number_format($minPrice->sale_price);
+
+        if($maxPrice) {
+            $showPrice = $showPrice . ' - ' . number_format($maxPrice->sale_price);
+        }
+
+        return $showPrice;
+    }
+
+    public function classifyAmount()
+    {
+        return $this->classify()->sum('amount');
+    }
+
+
 }

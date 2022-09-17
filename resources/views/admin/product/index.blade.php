@@ -53,18 +53,40 @@
                         </th>
                         <th>Thumbnail</th>
                         <th>Tên sản phẩm </th>
-                        <th></th>
-                        <th>Số lượng sản phẩm</th>
+                        <th>Phân loại</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Giá khuyến mại</th>
+                        <th>Mã sản phẩm</th>
+                        <th>Người tạo</th>
                         <th>Ngày tạo</th>
                         <th style="width: 10px">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-
+                        @foreach($products as $product)
+                            <tr>
+                                <td><input type="checkbox" class=""></td>
+                                <td class="text-nowrap">
+                                    <img src="{{$product->thumbnail}}" alt="{{$product->name}}" style="width: 100px; height: 100px">
+                                </td>
+                                <td class="text-nowrap">{{$product->name}}</td>
+                                <td class="text-nowrap">{{$product->classifyName()}}</td>
+                                <td class="text-nowrap">{{$product->classifyAmount()}}</td>
+                                <td class="text-nowrap">{{$product->classifyPrice()}} đ</td>
+                                <td class="text-nowrap">{{$product->classifySalePrice()}} đ</td>
+                                <td class="text-nowrap">{{$product->code}}</td>
+                                <td class="text-nowrap">{{$product->createBy()}}</td>
+                                <td class="text-nowrap">{{$product->created_at}}</td>
+                                <td class="text-center"><i class="mdi mdi-border-color"></i></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-
+            <div class="custom-paginate d-flex justify-content-end mt-3">
+                {{$products->links()}}
+            </div>
         </div>
     </div>
 

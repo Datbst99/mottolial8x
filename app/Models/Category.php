@@ -36,4 +36,27 @@ class Category extends Model
     protected $guarded = ['id'];
 
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'create_by');
+    }
+
+    public function product()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
+
+    public function createBy()
+    {
+        if($this->user) {
+            return $this->user->name;
+        }
+
+        return '';
+    }
+
+    public function countProduct()
+    {
+        return $this->product()->count();
+    }
 }

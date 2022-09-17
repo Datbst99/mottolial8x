@@ -13,7 +13,7 @@ return [
      * Quản trị toàn hệ thông
      */
     'admin' => [
-        'phone' => '123456',
+        'phone' => '0123456',
         'pass' => '123456'
     ]
 ];

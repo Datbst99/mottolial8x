@@ -58,7 +58,7 @@
                        <th>Số điện thoại</th>
                        <th>Điểm tích lũy</th>
                        <th>Địa chỉ</th>
-                       <th>Đăng nhập gần nhất</th>
+                       <th>Truy cập gần nhất</th>
                        <th>Ngày tạo</th>
                        <th style="width: 10px">Action</th>
                    </tr>
@@ -75,7 +75,7 @@
                             <td class="text-nowrap">{{$user->phone}}</td>
                             <td class="text-nowrap">{{$user->reward_point}}</td>
                             <td class="text-nowrap">{{$user->detail_address}}</td>
-                            <td class="text-nowrap">{{$user->last_login}}</td>
+                            <td class="text-nowrap">{{$user->last_access}}</td>
                             <td class="text-nowrap">{{$user->created_at}}</td>
                             <td class="text-center"><i class="mdi mdi-border-color"></i></td>
                         </tr>

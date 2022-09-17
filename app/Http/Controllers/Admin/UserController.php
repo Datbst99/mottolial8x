@@ -16,7 +16,7 @@ class UserController extends Controller
             $users = $users->where('name', 'LIKE', '%'.$request->get('search').'%');
         }
 
-        $users = $users->orderByDesc('last_login')->paginate(15);
+        $users = $users->orderByDesc('last_access')->paginate(15);
 
         $countUser = User::count();
         return view('admin.user.index', compact('users', 'countUser'));

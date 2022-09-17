@@ -17,7 +17,10 @@ class ProductController extends Controller
             ->pluck('title', 'id')
             ->toArray();
 
-        return view('admin.product.index', compact('categories'));
+        $products = Product::orderByDesc('created_at')
+            ->paginate(15);
+
+        return view('admin.product.index', compact('categories', 'products'));
     }
 
     public function create()

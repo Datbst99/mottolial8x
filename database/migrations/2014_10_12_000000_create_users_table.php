@@ -20,9 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique()->nullable();
             $table->string('password');
             $table->string('address')->nullable();
-            $table->string('detail_address');
+            $table->string('detail_address')->nullable();
             $table->integer('reward_point')->nullable();
-            $table->dateTime('last_login');
+            $table->dateTime('last_access')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

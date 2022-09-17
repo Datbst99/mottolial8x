@@ -21,6 +21,7 @@
                         <th>Tên </th>
                         <th>Thứ tự</th>
                         <th>Số lượng sản phẩm</th>
+                        <th>Người tạo</th>
                         <th>Ngày tạo</th>
                         <th style="width: 10px">Action</th>
                     </tr>
@@ -33,7 +34,8 @@
                                 </td>
                                 <td class="text-nowrap">{{$category->title}}</td>
                                 <td class="text-nowrap">{{$category->index}}</td>
-                                <td class="text-nowrap"></td>
+                                <td class="text-nowrap">{{$category->countProduct()}}</td>
+                                <td class="text-nowrap">{{$category->createBy()}}</td>
                                 <td class="text-nowrap">{{$category->created_at}}</td>
                                 <td class="text-center"><i class="mdi mdi-border-color"></i></td>
                             </tr>

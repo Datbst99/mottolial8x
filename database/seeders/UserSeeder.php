@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name' => 'admin',
             'phone' => config('core.admin.phone'),
+            'detail_address' => 'Hà nội',
             'password' => bcrypt(config('core.admin.pass'))
         ]);
 
