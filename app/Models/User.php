@@ -50,6 +50,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $roles_count
  * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null)
+ * @property string|null $last_access
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLastAccess($value)
  */
 class User extends Authenticatable
 {
@@ -81,4 +83,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function promotionUser()
+    {
+
+        $promotion = Promotion::where('reward_point', '<', $this->reward_point)->orderByDesc('reward_point')->first();
+
+        if(!$promotion) {
+            return 'Chưa có chương trình khuyến mại';
+        }
+
+        return $promotion->title;
+    }
 }

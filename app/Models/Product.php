@@ -32,6 +32,9 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property int|null $create_by
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreateBy($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductClassify[] $classify
+ * @property-read int|null $classify_count
+ * @property-read \App\Models\User|null $user
  */
 class Product extends Model
 {

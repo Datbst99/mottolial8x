@@ -78,7 +78,7 @@
                 <span class="menu-title">Quản lý danh mục</span>
             </a>
         </li>
-        <li class="nav-item menu-items {{ active('product.index') }}">
+        <li class="nav-item menu-items {{ active(['product.index', 'product.create', 'product.edit']) }}">
             <a class="nav-link" href="{{route('product.index')}}">
                 <span class="menu-icon">
                   <i class="mdi mdi-table-large"></i>
@@ -86,5 +86,22 @@
                 <span class="menu-title">Quản lý sản phẩm</span>
             </a>
         </li>
+        <li class="nav-item menu-items {{ active(['promotion.index']) }}">
+            <a class="nav-link" href="{{route('promotion.index')}}">
+                <span class="menu-icon">
+                  <i class="mdi mdi-gift"></i>
+                </span>
+                <span class="menu-title">Chương trình khuyễn mãi</span>
+            </a>
+        </li>
+        <li class="nav-item menu-items {{ active(['invoice.index']) }}">
+            <a class="nav-link" href="{{route('invoice.index')}}">
+                <span class="menu-icon">
+                  <i class="mdi mdi-cart-plus"></i>
+                </span>
+                <span class="menu-title">Quản lý đặt hàng</span>
+            </a>
+        </li>
+
     </ul>
 </nav>

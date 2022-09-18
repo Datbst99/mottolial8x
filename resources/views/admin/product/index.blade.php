@@ -13,19 +13,19 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                                    <div class="dropdown-menu" style="">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        <div role="separator" class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Separated link</a>
-                                    </div>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Nhập tên sản phẩm..." value="{{request()->get('search')}}" name="search">
-                            </div>
+{{--                            <div class="input-group">--}}
+{{--                                <div class="input-group-prepend">--}}
+{{--                                    <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>--}}
+{{--                                    <div class="dropdown-menu" style="">--}}
+{{--                                        <a class="dropdown-item" href="#">Action</a>--}}
+{{--                                        <a class="dropdown-item" href="#">Another action</a>--}}
+{{--                                        <a class="dropdown-item" href="#">Something else here</a>--}}
+{{--                                        <div role="separator" class="dropdown-divider"></div>--}}
+{{--                                        <a class="dropdown-item" href="#">Separated link</a>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <input type="text" class="form-control" placeholder="Nhập tên sản phẩm..." value="{{request()->get('search')}}" name="search">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-fw">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary btn-fw d-flex align-items-center justify-content-center"> <i class="mdi mdi-magnify" style="font-size: 18px"></i> Tìm kiếm</button>
                 {!! Form::close() !!}
             </div>
         </div>
@@ -42,14 +42,26 @@
     <div class="card mt-4">
         <div class="card-body">
             <div class="d-flex justify-content-end mb-3">
-                <a  class="btn btn-primary btn-fw d-flex align-items-center" href="{{route('product.create')}}"> <i class="mdi mdi-plus"></i> Thêm sản phẩm</a>
+
+
+                <div class="d-flex justify-content-end mb-3">
+                    <div>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="">
+                                <a  class="dropdown-item px-3 d-flex align-items-center" href="{{route('product.create')}}"> <i class="mdi mdi-plus mr-2"></i> Thêm sản phẩm</a>
+                                <button type="button" class="dropdown-item px-3 d-flex align-items-center" onclick="deleteProduct()"><i class="mdi mdi-delete mr-2"></i> Xóa sản phẩm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                     <tr>
                         <th>
-                            <input type="checkbox" class="">
+                            <input type="checkbox" class="" id="checkAll">
                         </th>
                         <th>Thumbnail</th>
                         <th>Tên sản phẩm </th>
@@ -66,7 +78,7 @@
                     <tbody>
                         @foreach($products as $product)
                             <tr>
-                                <td><input type="checkbox" class=""></td>
+                                <td><input type="checkbox" class="item-product" value="{{$product->id}}"></td>
                                 <td class="text-nowrap">
                                     <img src="{{$product->thumbnail}}" alt="{{$product->name}}" style="width: 100px; height: 100px">
                                 </td>
@@ -78,7 +90,9 @@
                                 <td class="text-nowrap">{{$product->code}}</td>
                                 <td class="text-nowrap">{{$product->createBy()}}</td>
                                 <td class="text-nowrap">{{$product->created_at}}</td>
-                                <td class="text-center"><i class="mdi mdi-border-color"></i></td>
+                                <td class="text-center">
+                                    <a href="{{route('product.edit', ['id' => $product->id])}}"><i class="mdi mdi-border-color"></i></a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -91,3 +105,50 @@
     </div>
 
 @endsection
+
+@section('script')
+    {!! Html::script(mix('js/notification.js')) !!}
+    <script>
+        $(document).ready(function () {
+            $("#checkAll").click(function() {
+                $(".item-product").prop("checked", this.checked);
+            });
+
+            $('.item-product').click(function() {
+                if ($('.item-product:checked').length == $('.item-product').length) {
+                    $('#checkAll').prop('checked', true);
+                } else {
+                    $('#checkAll').prop('checked', false);
+                }
+            });
+        })
+
+
+        function deleteProduct() {
+            var listProduct = $('.item-product:checked').map(function () {
+                return $(this).val()
+            }).get()
+
+            $.ajax({
+                url: '/admin/product/delete',
+                method: 'post',
+                data: {
+                    listProduct: listProduct,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                }
+            }).done(function (res) {
+                if(res.success) {
+                    notification(res.message, 'success')
+                    setTimeout(function () {
+                        location.reload()
+                    }, 1000)
+                }else {
+                    notification(res.message, 'error')
+                }
+            }).fail(function (xhr) {
+
+            })
+        }
+    </script>
+@stop
+

@@ -11,13 +11,25 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         $categories = Category::orderBy('index')
             ->pluck('title', 'id')
             ->toArray();
 
-        $products = Product::orderByDesc('created_at')
+        $model = Product::query();
+
+        $search = $request->get('search');
+        $category = $request->get('category');
+        if($search) {
+            $model = $model->where('name', 'LIKE', '%'.$search.'%');
+        }
+
+        if($category) {
+            $model = $model->where('category_id', $category);
+        }
+
+        $products = $model->orderByDesc('created_at')
             ->paginate(15);
 
         return view('admin.product.index', compact('categories', 'products'));
@@ -30,7 +42,6 @@ class ProductController extends Controller
             ->toArray();
         return view('admin.product.create', compact('categories'));
     }
-
 
     public function store(Request $request)
     {
@@ -79,49 +90,77 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Thêm sản phẩm thành công');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $categories = Category::orderBy('index')
+            ->pluck('title', 'id')
+            ->toArray();
+        return view('admin.product.edit', compact('product', 'categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'thumbnail' => 'required',
+            'category' => 'required',
+            'classifyName.*' => 'required'
+        ], [
+            'name.required' => 'Vui lòng nhập tên sản phẩm',
+            'code.required' => 'Vui lòng nhập mã sản phẩm',
+            'thumbnail.required' => 'Vui lòng thêm hình ảnh',
+            'category.required' => 'Chọn hình ảnh',
+            'classifyName.*.required' => 'Vui lòng nhập tên phân loại',
+        ]);
+
+        $product = Product::findOrFail($id);
+        $product->name = $request->get('name');
+        $product->code = $request->get('code');
+        $product->thumbnail = $request->get('thumbnail');
+        $product->category_id = $request->get('category');
+        $product->description = $request->get('description');
+        $product->status = 1;
+        $product->update();
+
+        $classifyName = $request->get('classifyName');
+        $classifyPrice = $request->get('price');
+        $classifySale = $request->get('sale_price');
+        $classifyAmount = $request->get('amount');
+
+        ProductClassify::where('product_id', $id)->delete();
+
+        foreach ($classifyName as $key => $val) {
+            $classify = new ProductClassify();
+            $classify->product_id = $product->id;
+            $classify->name = $val;
+            $classify->price = $classifyPrice[$key];
+            $classify->sale_price = $classifySale[$key];
+            $classify->amount = $classifyAmount[$key];
+            $classify->status = 1;
+            $classify->save();
+        }
+
+
+        return redirect()->route('product.index')->with('success', 'Cập nhật sản phẩm thành công');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Product $product)
+    public function delete(Request $request)
     {
-        //
-    }
+        if(!$request->get('listProduct')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vui lòng chọn sản phẩm cần xóa'
+            ]);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
-    {
-        //
+        Product::whereIn('id', $request->get('listProduct'))->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Xóa sản phẩm thành công'
+        ]);
     }
 
     public function classify()

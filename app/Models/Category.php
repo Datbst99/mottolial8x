@@ -26,6 +26,9 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property int|null $create_by
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereCreateBy($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $product
+ * @property-read int|null $product_count
+ * @property-read \App\Models\User|null $user
  */
 class Category extends Model
 {

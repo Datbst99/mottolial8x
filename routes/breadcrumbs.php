@@ -31,3 +31,23 @@ Breadcrumbs::for('admin.product.add', function (BreadcrumbTrail $trail){
     $trail->parent('admin.product');
     $trail->push('Thêm sản phẩm');
 });
+
+Breadcrumbs::for('admin.product.edit', function (BreadcrumbTrail $trail){
+    $trail->parent('admin.product');
+    $trail->push('Cập nhật sản phẩm');
+});
+
+Breadcrumbs::for('admin.invoice', function (BreadcrumbTrail $trail){
+    $trail->parent('admin.dashboard');
+    $trail->push('Quản lý đặt hàng', route('invoice.index'));
+});
+
+Breadcrumbs::for('admin.invoice.create', function (BreadcrumbTrail $trail){
+    $trail->parent('admin.invoice');
+    $trail->push('Tạo đơn hàng', route('invoice.create'));
+});
+
+Breadcrumbs::for('admin.promotion', function (BreadcrumbTrail $trail){
+    $trail->parent('admin.dashboard');
+    $trail->push('Chương trình khuyễn mãi', route('promotion.index'));
+});

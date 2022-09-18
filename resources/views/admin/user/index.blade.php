@@ -11,21 +11,9 @@
             <div>
                 {!! Form::open(['method' => 'get']) !!}
                 <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                            <div class="dropdown-menu" style="">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div role="separator" class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Nhập tên người dùng..." value="{{request()->get('search')}}" name="search">
-                    </div>
+                     <input type="text" class="form-control" placeholder="Nhập tên người dùng hoặc số điện thoại..." value="{{request()->get('search')}}" name="search">
                 </div>
-                <button type="submit" class="btn btn-primary btn-fw">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary btn-fw d-flex align-items-center justify-content-center"> <i class="mdi mdi-account-search" style="font-size: 18px"></i> Tìm kiếm</button>
                 {!! Form::close() !!}
             </div>
         </div>
@@ -33,7 +21,7 @@
     <div class="card mt-4">
        <div class="card-body">
            <div class="d-flex justify-content-between">
-               <div class="btn-rounded-default">
+               <div class="btn-rounded-default" style="font-weight: 500">
                    {{$countUser}} thành viên
                </div>
                <div>
@@ -41,8 +29,8 @@
                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="">
                            <button type="button" class="dropdown-item px-3 d-flex align-items-center" data-toggle="modal" data-target=".add-user"><i class="mdi mdi-account-plus mr-2"></i> Thêm user </button>
-                           <a class="dropdown-item px-3 d-flex align-items-center" href="#"> <i class="mdi mdi-delete mr-2"></i> Xóa thành viên </a>
-                           <a class="dropdown-item" href="#">Something else here</a>
+                           <button type="button" class="dropdown-item px-3 d-flex align-items-center" onclick="deleteUser()"><i class="mdi mdi-delete mr-2"></i> Xóa thành viên </button>
+
                        </div>
                    </div>
                </div>
@@ -52,7 +40,7 @@
                    <thead>
                    <tr>
                        <th>
-                           <input type="checkbox" class="">
+                           <input type="checkbox" class="" id="checkAll">
                        </th>
                        <th>Tên </th>
                        <th>Số điện thoại</th>
@@ -67,7 +55,7 @@
                    @foreach($users as $user)
                         <tr>
                             <td>
-                                <input type="checkbox" class="">
+                                <input type="checkbox" class="item-user" value="{{$user->id}}">
                             </td>
                             <td class="text-nowrap">
                                 {{$user->name}}
@@ -77,7 +65,7 @@
                             <td class="text-nowrap">{{$user->detail_address}}</td>
                             <td class="text-nowrap">{{$user->last_access}}</td>
                             <td class="text-nowrap">{{$user->created_at}}</td>
-                            <td class="text-center"><i class="mdi mdi-border-color"></i></td>
+                            <td class="text-center cursor-pointer" onclick="updateUser({{$user->id}})"><i class="mdi mdi-border-color"></i></td>
                         </tr>
                    @endforeach
                    </tbody>
@@ -142,4 +130,68 @@
             </div>
         </div>
     </div>
+
+    <div id="update-user">
+
+    </div>
 @endsection
+
+@section('script')
+    {!! Html::script(mix('js/notification.js')) !!}
+    <script>
+        $(document).ready(function () {
+            $("#checkAll").click(function() {
+                $(".item-user").prop("checked", this.checked);
+            });
+
+            $('.item-user').click(function() {
+                if ($('.item-user:checked').length == $('.item-user').length) {
+                    $('#checkAll').prop('checked', true);
+                } else {
+                    $('#checkAll').prop('checked', false);
+                }
+            });
+        })
+
+        function updateUser(id) {
+            $.ajax({
+                url: '/admin/user/form-update',
+                method: 'get',
+                data: {
+                    id
+                }
+            }).done(function (res) {
+                $('#update-user').html(res.data)
+                $('.update-user').modal('show')
+            }).fail(function (xhr) {
+
+            })
+        }
+
+        function deleteUser() {
+            var listUser = $('.item-user:checked').map(function () {
+                return $(this).val()
+            }).get()
+
+            $.ajax({
+                url: '/admin/user/delete',
+                method: 'post',
+                data: {
+                    listUser: listUser,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                }
+            }).done(function (res) {
+                if(res.success) {
+                    notification(res.message, 'success')
+                    setTimeout(function () {
+                        location.reload()
+                    }, 1000)
+                }else {
+                    notification(res.message, 'error')
+                }
+            }).fail(function (xhr) {
+
+            })
+        }
+    </script>
+@stop

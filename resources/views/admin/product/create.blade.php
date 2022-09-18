@@ -2,7 +2,7 @@
 @section('title', 'Thêm sản phẩm')
 @section('content')
     <div class="page-header">
-        <h3 class="page-title"> Thên sản phẩm </h3>
+        <h3 class="page-title"> Thêm sản phẩm </h3>
         {{Breadcrumbs::render('admin.product.add')}}
     </div>
     <div class="card">
