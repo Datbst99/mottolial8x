@@ -17,6 +17,7 @@ class CreatePromotionsTable extends Migration
             $table->id();
             $table->integer('reward_point');
             $table->string('title');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

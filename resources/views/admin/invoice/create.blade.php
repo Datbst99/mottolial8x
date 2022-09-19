@@ -13,7 +13,13 @@
         <div class="card-body">
             <div class="card-title mb-3">Lựa chọn khách hàng</div>
             <div class="d-flex ">
-                {!! Form::select('user', $users, null, ['class' => 'form-control user', 'placeholder' => '--Chọn khách hàng--']) !!}
+{{--                {!! Form::select('user', $users, null, ['class' => 'form-control user', 'placeholder' => '--Chọn khách hàng--']) !!}--}}
+                <div style="width: 100%">
+                    <input type="text" name="search" class="form-control search" placeholder="Nhập tên, email hoặc số điện thoại...">
+                    <div id="show-user">
+
+                    </div>
+                </div>
                 <button class="btn btn-primary ml-3 text-nowrap d-flex align-items-center"  data-toggle="modal" data-target=".add-user"><i class="mdi mdi-account-plus mr-2"></i> Tạo mới user</button>
             </div>
 
@@ -112,6 +118,17 @@
     {!! Html::script(mix('js/notification.js')) !!}
     <script>
         $(document).ready(function () {
+            $('.search').change(function () {
+                $.ajax({
+                    url: '/admin/invoice/search/user',
+                    method: 'get',
+                    data: {
+                        search: $(this).val()
+                    }
+                }).done(function (res) {
+                    $('#show-user').html(res.data)
+                })
+            })
 
             $('.user').change(function () {
                 let id = $(this).val();

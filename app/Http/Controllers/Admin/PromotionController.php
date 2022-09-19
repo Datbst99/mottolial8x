@@ -30,6 +30,7 @@ class PromotionController extends Controller
         $promotion = new Promotion();
         $promotion->title = $request->get('title');
         $promotion->reward_point = $request->get('point');
+        $promotion->description = $request->get('description');
         $promotion->save();
 
         return redirect()->back()->with('success', 'Thêm chương trình khuyễn mãi thành công');
@@ -49,6 +50,7 @@ class PromotionController extends Controller
         $promotion = Promotion::findOrFail($id);
         $promotion->title = $request->get('title');
         $promotion->reward_point = $request->get('point');
+        $promotion->description = $request->get('description');
         $promotion->update();
 
         return redirect()->back()->with('success', 'Cập nhật chương trình khuyễn mãi thành công');
@@ -81,5 +83,10 @@ class PromotionController extends Controller
             'success' => true,
             'data' => $html
         ]);
+    }
+
+    public function searchUser(Request $request)
+    {
+
     }
 }

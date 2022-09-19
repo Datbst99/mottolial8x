@@ -69,7 +69,8 @@ class CategoryController extends Controller
             ]);
         }
 
-        Category::whereIn('id', $request->get('listCategory'))->delete();
+        Category::whereIn('id', $request->get('listCategory'))
+            ->delete();
         return response()->json([
             'success' => true,
             'message' => 'Xóa danh mục thành công'

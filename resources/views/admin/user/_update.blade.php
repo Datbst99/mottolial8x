@@ -19,8 +19,26 @@
                         <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại" name="phone" value="{{$user->phone}}">
                     </div>
                     <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" placeholder="Nhập email" name="email" value="{{$user->email}}">
+                    </div>
+                    <div class="form-group">
                         <label for="password">Mật khẩu</label>
                         <input type="text" class="form-control" id="password" placeholder="Nhập mật khẩu" name="password" >
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Tỉnh/Quận-Huyện/Phường-Xã</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select class="form-control" name="ls_province"></select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" name="ls_district"></select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" name="ls_ward"></select>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="address">Địa chỉ</label>

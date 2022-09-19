@@ -17,6 +17,10 @@ class UserController extends Controller
             $users = $users->where('name', 'LIKE', '%'.$search.'%')
                             ->orWhere('phone', 'LIKE', '%'.$search.'%');
         }
+        $address = $request->get('ls_province');
+        if($address) {
+            $users = $users->where('address', 'LIKE', '%'.$address.'%');
+        }
 
         $users = $users->orderByDesc('last_access')->paginate(15);
 
@@ -33,6 +37,7 @@ class UserController extends Controller
             'password' => 'required|min:6',
             'address' => 'required',
             'role' => 'required',
+
         ],[
             'username.required' => 'Vui lòng nhập tên user',
             'phone.required' => 'Vui lòng nhập số điện thoại',
@@ -47,7 +52,9 @@ class UserController extends Controller
 
         $user = new User();
         $user->name = $request->get('username');
+        $user->email = $request->get('email');
         $user->phone = $request->get('phone');
+        $user->address = $request->get('ls_province'). ', ' . $request->get('ls_district') . ', '. $request->get('ls_ward');
         $user->detail_address = $request->get('address');
         $user->password = Hash::make($request->get('password'));
         $user->save();
@@ -77,7 +84,11 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
         $user->name = $request->get('username');
+        $user->email = $request->get('email');
         $user->phone = $request->get('phone');
+        if($request->get('ls_province')) {
+            $user->address = $request->get('ls_province'). ', ' . $request->get('ls_district') . ', '. $request->get('ls_ward');
+        }
         $user->detail_address = $request->get('address');
         if($request->get('password')){
             $user->password = Hash::make($request->get('password'));
@@ -118,4 +129,5 @@ class UserController extends Controller
             'data' => $html
         ]);
     }
+
 }

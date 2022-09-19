@@ -10,8 +10,18 @@
             <div class="card-title">Filters</div>
             <div>
                 {!! Form::open(['method' => 'get']) !!}
-                <div class="form-group">
-                     <input type="text" class="form-control" placeholder="Nhập tên người dùng hoặc số điện thoại..." value="{{request()->get('search')}}" name="search">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nhập tên người dùng hoặc số điện thoại..." value="{{request()->get('search')}}" name="search">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select name="ls_province" class="form-control"></select>
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-fw d-flex align-items-center justify-content-center"> <i class="mdi mdi-account-search" style="font-size: 18px"></i> Tìm kiếm</button>
                 {!! Form::close() !!}
@@ -45,6 +55,7 @@
                        <th>Tên </th>
                        <th>Số điện thoại</th>
                        <th>Điểm tích lũy</th>
+                       <th>Tỉnh/Quận-Huyện/Phường-Xã</th>
                        <th>Địa chỉ</th>
                        <th>Truy cập gần nhất</th>
                        <th>Ngày tạo</th>
@@ -62,6 +73,7 @@
                             </td>
                             <td class="text-nowrap">{{$user->phone}}</td>
                             <td class="text-nowrap">{{$user->reward_point}}</td>
+                            <td class="text-nowrap">{{$user->address}}</td>
                             <td class="text-nowrap">{{$user->detail_address}}</td>
                             <td class="text-nowrap">{{$user->last_access}}</td>
                             <td class="text-nowrap">{{$user->created_at}}</td>
@@ -110,7 +122,7 @@
                             <input type="text" class="form-control" id="password" placeholder="Nhập mật khẩu" name="password">
                         </div>
                         <div class="form-group">
-                            <label for="address">Địa chỉ</label>
+                            <label for="address">Tỉnh/Quận-Huyện/Phường-Xã</label>
                             <div class="row">
                                 <div class="col-md-4">
                                     <select class="form-control" name="ls_province"></select>

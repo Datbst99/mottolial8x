@@ -80,4 +80,19 @@ class InvoiceController extends Controller
         ]);
     }
 
+    public function searchUser(Request $request)
+    {
+        $search = $request->get('search');
+        $users = User::where('name', 'LIKE', '%'. $search . '%')
+                    ->orWhere('email', 'LIKE', '%'. $search . '%')
+                    ->orWhere('phone', 'LIKE', '%'. $search . '%')
+                    ->get();
+
+        $html = view('admin.invoice._list_user', compact('users'))->render();
+
+        return response()->json([
+            'success' => true,
+            'data' => $html
+        ]);
+    }
 }

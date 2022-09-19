@@ -11,14 +11,17 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="title">Tên chươn trình</label>
+                        <label for="title">Tên chươn trình khuyến mãi</label>
                         <input type="text" class="form-control" id="title" placeholder="Nhập tên chương trình" name="title" value="{{$promotion->title}}">
                     </div>
                     <div class="form-group">
                         <label for="index">Điểm tích lũy</label>
                         <input type="text" class="form-control" id="index" placeholder="Nhập điểm tích lũy" name="point" value="{{$promotion->reward_point}}">
                     </div>
-
+                    <div class="form-group">
+                        <label for="description">Nội dung khuyến mãi</label>
+                        <input type="text" class="form-control" id="description" placeholder="Nhập nội dung khuyến mãi" name="description" value="{{$promotion->description}}">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Lưu</button>

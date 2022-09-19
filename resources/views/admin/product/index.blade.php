@@ -47,7 +47,7 @@
                 <div class="d-flex justify-content-end mb-3">
                     <div>
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hành động </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="">
                                 <a  class="dropdown-item px-3 d-flex align-items-center" href="{{route('product.create')}}"> <i class="mdi mdi-plus mr-2"></i> Thêm sản phẩm</a>
                                 <button type="button" class="dropdown-item px-3 d-flex align-items-center" onclick="deleteProduct()"><i class="mdi mdi-delete mr-2"></i> Xóa sản phẩm</button>
@@ -80,7 +80,7 @@
                             <tr>
                                 <td><input type="checkbox" class="item-product" value="{{$product->id}}"></td>
                                 <td class="text-nowrap">
-                                    <img src="{{$product->thumbnail}}" alt="{{$product->name}}" style="width: 100px; height: 100px">
+                                    <img src="{{$product->thumbnail}}" alt="{{$product->name}}" style="width: 60px; height: 60px">
                                 </td>
                                 <td class="text-nowrap">{{$product->name}}</td>
                                 <td class="text-nowrap">{{$product->classifyName()}}</td>

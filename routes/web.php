@@ -37,7 +37,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         Route::post('/store', [UserController::class, 'store'])->name('admin.user.store');
         Route::post('/{id}/update', [UserController::class, 'update'])->name('admin.user.update');
         Route::get('/form-update', [UserController::class, 'formUpdate']);
-
         Route::post('/delete', [UserController::class, 'delete'])->name('admin.user.delete');
     });
 
@@ -71,6 +70,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         Route::post('/product', [InvoiceController::class, 'product'])->name('invoice.product');
         Route::post('/list/product', [InvoiceController::class, 'listProduct'])->name('invoice.list.product');
         Route::post('/list/classify', [InvoiceController::class, 'listClassify'])->name('invoice.list.classify');
+        Route::get('/search/user', [PromotionController::class, 'searchUser']);
+
     });
 
     Route::group(['prefix' => 'promotion'], function (){

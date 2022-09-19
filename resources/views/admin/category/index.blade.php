@@ -11,7 +11,7 @@
             <div class="d-flex justify-content-end mb-3">
                 <div>
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hành động </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="">
                             <button type="button" class="dropdown-item px-3 d-flex align-items-center" data-toggle="modal" data-target=".add-category"> <i class="mdi mdi-plus mr-2"></i> Thêm danh mục</button>
                             <button type="button" class="dropdown-item px-3 d-flex align-items-center" onclick="deleteCategory()"><i class="mdi mdi-delete mr-2"></i> Xóa danh mục</button>
@@ -40,7 +40,7 @@
                         @foreach($categories as $category)
                             <tr>
                                 <td>
-                                    <input type="checkbox" class="item-cate" value="{{$category->id}}">
+                                    <input type="checkbox" class="{{ $category->countProduct() > 0 ? '' :'item-cate' }}" value="{{$category->id}}" @if($category->countProduct() > 0) disabled @endif>
                                 </td>
                                 <td class="text-nowrap">{{$category->title}}</td>
                                 <td class="text-nowrap">{{$category->index}}</td>

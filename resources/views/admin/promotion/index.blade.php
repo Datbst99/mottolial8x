@@ -9,10 +9,13 @@
 
     <div class="card">
         <div class="card-body">
-            <div class="d-flex justify-content-end mb-3">
+            <div class="d-flex justify-content-between mb-3">
+                <div>
+                    Công thức quy đổi: <span>1.000 đồng</span> thành <span>1 điểm</span>
+                </div>
                 <div>
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hành động </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="">
                             <button type="button" class="dropdown-item px-3 d-flex align-items-center" data-toggle="modal" data-target=".add-promotion"> <i class="mdi mdi-plus mr-2"></i> Thêm chương trình</button>
                             <button type="button" class="dropdown-item px-3 d-flex align-items-center" onclick="deletePromotion()"><i class="mdi mdi-delete mr-2"></i> Xóa chương trình</button>
@@ -29,10 +32,11 @@
                         <th>
                             <input type="checkbox" class=""  id="checkAll">
                         </th>
-                        <th>Tên chương trình </th>
                         <th>Điểm tích luỹ </th>
+                        <th>Tên chương trình khuyến mãi</th>
+                        <th>Nội dung khuyến mãi</th>
                         <th>Ngày tạo</th>
-                        <th style="width: 10px">Action</th>
+                        <th style="width: 10px">Hành động</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -41,8 +45,9 @@
                             <td>
                                 <input type="checkbox" class="item-promotion" value="{{$promotion->id}}">
                             </td>
-                            <td class="text-nowrap">{{$promotion->title}}</td>
                             <td class="text-nowrap">{{$promotion->reward_point}}</td>
+                            <td class="text-nowrap">{{$promotion->title}}</td>
+                            <td class="text-nowrap">{{$promotion->description}}</td>
                             <td class="text-nowrap">{{$promotion->created_at}}</td>
                             <td class="text-center cursor-pointer" onclick="updatePromotion({{$promotion->id}})"><i class="mdi mdi-border-color"></i></td>
                         </tr>
@@ -67,14 +72,17 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="title">Tên chươn trình</label>
+                            <label for="title">Tên chươn trình khuyến mãi</label>
                             <input type="text" class="form-control" id="title" placeholder="Nhập tên chương trình" name="title">
                         </div>
                         <div class="form-group">
                             <label for="index">Điểm tích lũy</label>
                             <input type="text" class="form-control" id="index" placeholder="Nhập điểm tích lũy" name="point">
                         </div>
-
+                        <div class="form-group">
+                            <label for="description">Nội dung khuyến mãi</label>
+                            <input type="text" class="form-control" id="description" placeholder="Nhập nội dung khuyến mãi" name="description">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Lưu</button>

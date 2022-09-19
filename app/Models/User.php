@@ -100,11 +100,19 @@ class User extends Authenticatable
 
     public function getCreatedAtAttribute($date)
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('H:i:s d-m-Y');
+        if($date) {
+            return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('H:i:s d-m-Y');
+        }
+
+        return null;
     }
 
     public function getLastAccessAttribute($date)
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('H:i:s d-m-Y');
+        if($date) {
+            return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('H:i:s d-m-Y');
+        }
+
+        return null;
     }
 }

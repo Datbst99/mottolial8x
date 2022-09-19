@@ -23,12 +23,17 @@
                 </div>
                 <div class="form-group">
                     <label for="">Hình ảnh</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-default" id="btn_file_add" type="button">Chọn file</button>
-                        </div>
-                        <input type="text" class="form-control" id="file_name_add" name="thumbnail" placeholder="Tên file" value="{{old('thumbnail')}}">
+
+                    <div>
+                        <img src="/assets/images/default.png" alt="" style="width: 150px; height: 150px" id="btn_file_add">
+                        <input type="text" class="form-control d-none" id="file_name_add" name="thumbnail" placeholder="Tên file" value="{{old('thumbnail')}}">
                     </div>
+{{--                    <div class="input-group">--}}
+{{--                        <div class="input-group-prepend">--}}
+{{--                            <button class="btn btn-default" id="btn_file_add" type="button">Chọn file</button>--}}
+{{--                        </div>--}}
+{{--                        <input type="text" class="form-control" id="file_name_add" name="thumbnail" placeholder="Tên file" value="{{old('thumbnail')}}">--}}
+{{--                    </div>--}}
                 </div>
                 <div class="form-group">
                     <label for="">Danh mục</label>
@@ -77,6 +82,7 @@
                         }
                         var output = document.getElementById(elementId);
                         output.value = url;
+                        $('#btn_file_add').attr('src', url)
                     });
                     finder.on('file:choose:resizedImage', function (evt) {
                         var url = '';
@@ -87,6 +93,7 @@
                         }
                         var output = document.getElementById(elementId);
                         output.value = url;
+                        $('#btn_file_add').attr('src', url)
                     });
                 }
             })
