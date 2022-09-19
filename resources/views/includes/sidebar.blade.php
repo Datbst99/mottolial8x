@@ -67,7 +67,7 @@
                 <span class="menu-icon">
                   <i class="mdi mdi-account-multiple"></i>
                 </span>
-                <span class="menu-title">Quản lý user</span>
+                <span class="menu-title">Quản lý khách hàng</span>
             </a>
         </li>
         <li class="nav-item menu-items {{ active('category.user') }}">

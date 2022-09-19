@@ -67,3 +67,11 @@
 #info-user {
     padding-bottom: 20px;
 }
+
+@media (min-width: 992px) {
+    .add-user {
+        .modal-lg {
+            max-width: 800px;
+        }
+    }
+}

@@ -3,9 +3,9 @@
 return [
     'roles' => [
         'admin' => 'Admin',
-        'staff' => 'Staff',
-        'financial' => 'Financial',
-        'user' => 'User'
+        'staff' => 'Nhân sự',
+        'financial' => 'Tài chính',
+        'user' => 'Khách hàng'
     ],
 
     /*

@@ -1,8 +1,8 @@
 @extends('layouts.admin')
-@section('title', 'Quản lý user')
+@section('title', 'Quản lý khách hàng')
 @section('content')
     <div class="page-header">
-        <h3 class="page-title"> Quản lý user </h3>
+        <h3 class="page-title"> Quản lý khách hàng </h3>
         {{Breadcrumbs::render('admin.user')}}
     </div>
     <div class="card">
@@ -26,9 +26,9 @@
                </div>
                <div>
                    <div class="dropdown">
-                       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
+                       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hành động </button>
                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="">
-                           <button type="button" class="dropdown-item px-3 d-flex align-items-center" data-toggle="modal" data-target=".add-user"><i class="mdi mdi-account-plus mr-2"></i> Thêm user </button>
+                           <button type="button" class="dropdown-item px-3 d-flex align-items-center" data-toggle="modal" data-target=".add-user"><i class="mdi mdi-account-plus mr-2"></i> Thêm khách hàng </button>
                            <button type="button" class="dropdown-item px-3 d-flex align-items-center" onclick="deleteUser()"><i class="mdi mdi-delete mr-2"></i> Xóa thành viên </button>
 
                        </div>
@@ -48,7 +48,7 @@
                        <th>Địa chỉ</th>
                        <th>Truy cập gần nhất</th>
                        <th>Ngày tạo</th>
-                       <th style="width: 10px">Action</th>
+                       <th style="width: 10px">Hành động</th>
                    </tr>
                    </thead>
                    <tbody>
@@ -82,7 +82,7 @@
 {{--    Modal add user--}}
 
     <div class="modal fade add-user" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Thêm user</h5>
@@ -102,19 +102,38 @@
                             <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại" name="phone">
                         </div>
                         <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="email" placeholder="Nhập email" name="email">
+                        </div>
+                        <div class="form-group">
                             <label for="password">Mật khẩu</label>
                             <input type="text" class="form-control" id="password" placeholder="Nhập mật khẩu" name="password">
                         </div>
                         <div class="form-group">
                             <label for="address">Địa chỉ</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select class="form-control" name="ls_province"></select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control" name="ls_district"></select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control" name="ls_ward"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
                             <textarea name="address" id="address" class="form-control" rows="10" placeholder="Nhập địa chỉ"></textarea>
                         </div>
+                        <div></div>
                         <div class="form-group">
                             <label for="role">Chọn vai trò</label>
                             <div class="d-flex justify-content-between">
                                 @foreach(config('core.roles') as $key => $role)
-                                    <div class="form-check my-0 mr-5">
-                                        <label class="form-check-label">
+                                    <div class="form-check my-0">
+                                        <label class="form-check-label text-nowrap">
                                             <input type="radio" class="form-check-input" name="role" id="" value="{{$key}}" @if($key == 'user') checked @endif> {{$role}} <i class="input-helper"></i></label>
                                     </div>
                                 @endforeach
@@ -138,6 +157,7 @@
 
 @section('script')
     {!! Html::script(mix('js/notification.js')) !!}
+    {!! Html::script(mix('js/vietnamlocalselector.js')) !!}
     <script>
         $(document).ready(function () {
             $("#checkAll").click(function() {
@@ -193,5 +213,11 @@
 
             })
         }
+
+        var localpicker = new LocalPicker({
+            province: "ls_province",
+            district: "ls_district",
+            ward: "ls_ward"
+        });
     </script>
 @stop

@@ -14,7 +14,7 @@ Breadcrumbs::for('admin.dashboard', function (BreadcrumbTrail $trail){
 
 Breadcrumbs::for('admin.user', function (BreadcrumbTrail $trail){
     $trail->parent('admin.dashboard');
-    $trail->push('Quản lý user', route('admin.user'));
+    $trail->push('Quản lý khách hàng', route('admin.user'));
 });
 
 Breadcrumbs::for('admin.category', function (BreadcrumbTrail $trail){

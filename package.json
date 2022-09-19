@@ -23,7 +23,7 @@
     },
     "dependencies": {
         "@mdi/font": "^3.7.95",
-        "bootstrap": "^4.4.1",
+        "bootstrap": "^4.6.0",
         "bootstrap-maxlength": "^1.6.0",
         "chart.js": "^2.8.0",
         "codemirror": "^5.48.0",
