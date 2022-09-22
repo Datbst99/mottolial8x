@@ -13,13 +13,7 @@
         <div class="card-body">
             <div class="card-title mb-3">Lựa chọn khách hàng</div>
             <div class="d-flex ">
-{{--                {!! Form::select('user', $users, null, ['class' => 'form-control user', 'placeholder' => '--Chọn khách hàng--']) !!}--}}
-                <div style="width: 100%">
-                    <input type="text" name="search" class="form-control search" placeholder="Nhập tên, email hoặc số điện thoại...">
-                    <div id="show-user">
-
-                    </div>
-                </div>
+                {!! Form::select('user', $users, null, ['class' => 'form-control user', 'placeholder' => '--Chọn khách hàng--']) !!}
                 <button class="btn btn-primary ml-3 text-nowrap d-flex align-items-center"  data-toggle="modal" data-target=".add-user"><i class="mdi mdi-account-plus mr-2"></i> Tạo mới user</button>
             </div>
 
@@ -59,7 +53,7 @@
     {{--    Modal add user--}}
 
     <div class="modal fade add-user" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Thêm user</h5>
@@ -79,19 +73,38 @@
                             <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại" name="phone">
                         </div>
                         <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="email" placeholder="Nhập email" name="email">
+                        </div>
+                        <div class="form-group">
                             <label for="password">Mật khẩu</label>
                             <input type="text" class="form-control" id="password" placeholder="Nhập mật khẩu" name="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Tỉnh/Quận-Huyện/Phường-Xã</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select class="form-control" name="ls_province"></select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control" name="ls_district"></select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control" name="ls_ward"></select>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="address">Địa chỉ</label>
                             <textarea name="address" id="address" class="form-control" rows="10" placeholder="Nhập địa chỉ"></textarea>
                         </div>
+                        <div></div>
                         <div class="form-group">
                             <label for="role">Chọn vai trò</label>
                             <div class="d-flex justify-content-between">
                                 @foreach(config('core.roles') as $key => $role)
-                                    <div class="form-check my-0 mr-5">
-                                        <label class="form-check-label">
+                                    <div class="form-check my-0">
+                                        <label class="form-check-label text-nowrap">
                                             <input type="radio" class="form-check-input" name="role" id="" value="{{$key}}" @if($key == 'user') checked @endif> {{$role}} <i class="input-helper"></i></label>
                                     </div>
                                 @endforeach
@@ -107,6 +120,7 @@
             </div>
         </div>
     </div>
+
     <div id="modal-add-product">
 
     </div>
@@ -114,10 +128,12 @@
 
 @section('script')
     {!! Html::script('/assets/vendors/ckfinder/ckfinder.js') !!}
+    {!! Html::script(mix('js/vietnamlocalselector.js')) !!}
     <script src="/assets/vendors/select2/select2.min.js"></script>
     {!! Html::script(mix('js/notification.js')) !!}
     <script>
         $(document).ready(function () {
+            $('.user').select2();
             $('.search').change(function () {
                 $.ajax({
                     url: '/admin/invoice/search/user',
@@ -203,6 +219,11 @@
                 $(obj).parent().remove()
             }
         }
+        var localpicker = new LocalPicker({
+            province: "ls_province",
+            district: "ls_district",
+            ward: "ls_ward"
+        });
 
     </script>
 @stop

@@ -19,7 +19,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select name="ls_province" class="form-control"></select>
+                            <select name="find-add" class="form-control"></select>
                         </div>
                     </div>
                 </div>
@@ -231,5 +231,6 @@
             district: "ls_district",
             ward: "ls_ward"
         });
+
     </script>
 @stop
