@@ -71,6 +71,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         Route::post('/list/product', [InvoiceController::class, 'listProduct'])->name('invoice.list.product');
         Route::post('/list/classify', [InvoiceController::class, 'listClassify'])->name('invoice.list.classify');
         Route::get('/search/user', [InvoiceController::class, 'searchUser']);
+        Route::get('/search/product', [InvoiceController::class, 'searchProduct']);
 
     });
 

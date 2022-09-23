@@ -1,5 +1,5 @@
 <div class="modal fade list-product" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Chọn sản phẩm</h5>
@@ -7,15 +7,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="min-height: 200px">
                 <div class="form-group">
-                    <label for="title">Chọn sản phẩm</label>
-                    <select name="selectProduct" id="" class="select-product" style="width: 100%" onchange="renderClassify()">
-                        <option value="" selected disabled>--Chọn sản phẩm--</option>
-                        @foreach($products as $product)
-                            <option value="{{$product->id}}">{{$product->name}}</option>
-                        @endforeach
-                    </select>
+                    <label for="title">Tìm kiếm sản phẩm</label>
+                    <input type="text" class="form-control" name="classifyProduct" placeholder="Nhập tên sản phẩm hoặc mã sản phẩm..." onchange="searchProduct(this)">
+
+                </div>
+                <div id="show-search-product" class="mb-3">
 
                 </div>
                 <div id="selectClassify">

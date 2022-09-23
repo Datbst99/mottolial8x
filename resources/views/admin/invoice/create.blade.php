@@ -11,12 +11,18 @@
     </div>
     <div class="card mb-3">
         <div class="card-body">
-            <div class="card-title mb-3">Lựa chọn khách hàng</div>
-            <div class="d-flex ">
-                {!! Form::select('user', $users, null, ['class' => 'form-control user', 'placeholder' => '--Chọn khách hàng--']) !!}
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div class="card-title mb-3">Lựa chọn khách hàng</div>
                 <button class="btn btn-primary ml-3 text-nowrap d-flex align-items-center"  data-toggle="modal" data-target=".add-user"><i class="mdi mdi-account-plus mr-2"></i> Tạo mới user</button>
             </div>
+            <div>
+                <div style="width: 100%">
+                    <input type="text" name="search" class="form-control search" placeholder="Nhập tên, email hoặc số điện thoại...">
+                </div>
+            </div>
+            <div id="show-user">
 
+            </div>
         </div>
     </div>
 
@@ -133,7 +139,6 @@
     {!! Html::script(mix('js/notification.js')) !!}
     <script>
         $(document).ready(function () {
-            $('.user').select2();
             $('.search').change(function () {
                 $.ajax({
                     url: '/admin/invoice/search/user',
@@ -146,19 +151,36 @@
                 })
             })
 
-            $('.user').change(function () {
-                let id = $(this).val();
-                $.ajax({
-                    url: '/admin/invoice/user',
-                    method: 'get',
-                    data: {
-                        id
-                    }
-                }).done(function (res) {
-                    $('#info-user').html(res.data)
-                })
-            })
+
         })
+
+        function getUser(obj, id) {
+            $.ajax({
+                url: '/admin/invoice/user',
+                method: 'get',
+                data: {
+                    id
+                }
+            }).done(function (res) {
+                $('#info-user').html(res.data)
+                $('#show-user').html('')
+                $('.search').val('')
+            })
+        }
+        function searchProduct(obj) {
+            let search = $(obj).val()
+            $.ajax({
+                url: '/admin/invoice/search/product',
+                method: 'get',
+                data: {
+                    search
+                }
+            }).done(function (res) {
+                $('#show-search-product').html(res.data)
+            })
+        }
+
+
 
         function addProduct() {
             $.ajax({
@@ -175,13 +197,13 @@
                 console.log(xhr)
             })
         }
-        function renderClassify() {
+        function renderClassify(id) {
             $.ajax({
                 url: '/admin/invoice/list/classify',
                 method: 'post',
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content'),
-                    id: $('.select-product').val()
+                    id: id
                 }
             }).done(function (res) {
                 $('#selectClassify').html(res.data)
@@ -189,7 +211,6 @@
                 console.log(xhr)
             })
         }
-
         function loadProduct() {
             let productId = $(".select-product").val()
             let classifyId = $(".select-classify").val()
@@ -219,6 +240,26 @@
                 $(obj).parent().remove()
             }
         }
+
+        function configPrice(obj, type) {
+            var amount = 1;
+            var sale = 1;
+            if(type === 'amount'){
+                amount = $(obj).val()
+            } else {
+                amount = $(obj).parents('.wp-classify').find('.amount-product').val()
+            }
+
+            if(type === 'sale'){
+                sale = $(obj).val()
+            } else {
+                sale = $(obj).parents('.wp-classify').find('.sale-price').val()
+            }
+            var total = new Intl.NumberFormat('en-US').format(amount * sale)
+            $(obj).parents('.wp-classify').find('#total-price').html(total + ' đ')
+
+        }
+
         var localpicker = new LocalPicker({
             province: "ls_province",
             district: "ls_district",

@@ -13,26 +13,26 @@
         <div class="item-add">
             <div class="form-group">
                 <label for="">Số lượng</label>
-                <input type="number" name="amount[]" placeholder="Số lượng" class="form-control" value="1" >
+                <input type="number" name="amount[]" placeholder="Số lượng" class="form-control amount-product" value="1" onchange="configPrice(this, 'amount')">
             </div>
         </div>
         <div class="item-add">
             <div class="form-group">
                 <label for="">Giá</label>
-                <input type="text" name="price[]" placeholder="Giá" class="form-control" value="{{$classify->price}}" disabled>
+                <input type="text" name="price[]" placeholder="Giá" class="form-control price-product" value="{{$classify->price}}" disabled>
             </div>
         </div>
         <div class="item-add">
             <div class="form-group">
                 <label for="">Giá khuyến mại</label>
-                <input type="text" name="sale_price[]" placeholder="Nhập giá khuyến mại" class="form-control" value="{{$classify->sale_price}}">
+                <input type="text" name="sale_price[]" placeholder="Nhập giá khuyến mại" class="form-control sale-price" value="{{$classify->sale_price}}" onchange="configPrice(this, 'sale')">
             </div>
         </div>
 
         <div class="item-add text-center">
             <div class="form-group">
                 <label for="">Thành tiền</label>
-                <div style="padding: 5px 0">
+                <div style="padding: 5px 0" id="total-price">
                     {{ number_format($classify->sale_price ?  $classify->sale_price : $classify->price) }} đ
                 </div>
             </div>

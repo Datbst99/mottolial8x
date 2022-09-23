@@ -70,9 +70,10 @@ class InvoiceController extends Controller
 
     public function listClassify(Request $request)
     {
-        $classifies = ProductClassify::where('product_id', $request->get('id'))->get();
+        $product = Product::findOrFail( $request->get('id'));
+        $classifies = ProductClassify::where('product_id', $product->id)->get();
 
-        $html = view('admin.invoice._classify', compact('classifies'))->render();
+        $html = view('admin.invoice._classify', compact('classifies', 'product'))->render();
 
         return response()->json([
             'success' => true,
@@ -89,6 +90,22 @@ class InvoiceController extends Controller
                     ->get();
 
         $html = view('admin.invoice._list_user', compact('users'))->render();
+
+        return response()->json([
+            'success' => true,
+            'data' => $html
+        ]);
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $search = $request->get('search');
+
+        $products = Product::where('name', 'LIKE', '%'. $search . '%')
+            ->orWhere('code', 'LIKE', '%'. $search . '%')
+            ->get();
+
+        $html = view('admin.invoice._search_product', compact('products'))->render();
 
         return response()->json([
             'success' => true,

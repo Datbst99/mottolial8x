@@ -23252,12 +23252,26 @@ div.tagsinput span.tag a {
   font-weight: 500;
 }
 
+#show-user {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
 #info-user {
   padding-bottom: 20px;
 }
 
+#info-user .active {
+  background-color: rgba(184, 184, 184, 0.59);
+}
+
+.wp-search-product {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
 @media (min-width: 992px) {
-  .add-user .modal-lg {
+  .modal-lg {
     max-width: 800px;
   }
 }
