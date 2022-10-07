@@ -72,16 +72,16 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="title">Tên chươn trình khuyến mãi</label>
-                            <input type="text" class="form-control" id="title" placeholder="Nhập tên chương trình" name="title">
+                            <label for="title">Tên chương trình khuyến mãi(*)</label>
+                            <input type="text" class="form-control" id="title" placeholder="Nhập tên chương trình" name="title" value="{{old('title')}}">
                         </div>
                         <div class="form-group">
-                            <label for="index">Điểm tích lũy</label>
-                            <input type="text" class="form-control" id="index" placeholder="Nhập điểm tích lũy" name="point">
+                            <label for="index">Điểm tích lũy(*)</label>
+                            <input type="text" class="form-control" id="index" placeholder="Nhập điểm tích lũy" name="point" value="{{old('point')}}">
                         </div>
                         <div class="form-group">
-                            <label for="description">Nội dung khuyến mãi</label>
-                            <input type="text" class="form-control" id="description" placeholder="Nhập nội dung khuyến mãi" name="description">
+                            <label for="description">Nội dung khuyến mãi(*)</label>
+                            <input type="text" class="form-control" id="description" placeholder="Nhập nội dung khuyến mãi" name="description" value="{{old('description')}}">
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -17,11 +17,6 @@ class UserController extends Controller
             $users = $users->where('name', 'LIKE', '%'.$search.'%')
                             ->orWhere('phone', 'LIKE', '%'.$search.'%');
         }
-        $address = $request->get('ls_province');
-        if($address) {
-            $users = $users->where('address', 'LIKE', '%'.$address.'%');
-        }
-
         $users = $users->orderByDesc('last_access')->paginate(15);
 
         $countUser = User::count();
@@ -33,7 +28,7 @@ class UserController extends Controller
 
         $request->validate([
             'username' => 'required',
-            'phone' => 'required|numeric|unique:users',
+            'phone' => 'required|numeric|unique:users|min:10',
             'password' => 'required|min:6',
             'address' => 'required',
             'role' => 'required',
@@ -54,8 +49,9 @@ class UserController extends Controller
         $user->name = $request->get('username');
         $user->email = $request->get('email');
         $user->phone = $request->get('phone');
-        $user->address = $request->get('ls_province'). ', ' . $request->get('ls_district') . ', '. $request->get('ls_ward');
+        $user->address = $request->get('province'). ', ' . $request->get('district') . ', '. $request->get('ward');
         $user->detail_address = $request->get('address');
+        $user->reward_point = $request->get('reward_point');
         $user->password = Hash::make($request->get('password'));
         $user->save();
 
@@ -67,37 +63,42 @@ class UserController extends Controller
 
     public function update($id, Request $request)
     {
-        $request->validate([
-            'username' => 'required',
-            'phone' => 'required|numeric',
-            'password' => 'nullable|min:6',
-            'address' => 'required',
-            'role' => 'required',
-        ],[
-            'username.required' => 'Vui lòng nhập tên user',
-            'phone.required' => 'Vui lòng nhập số điện thoại',
-            'phone.numeric' => 'Sai định dạng chữ số',
-            'password.min' => 'Số ký tự nhập phải lớn hơn 6',
-            'address.required' => 'Vui lòng nhập địa chỉ',
-            'role.required' => 'Vui lòng chọn vai trò',
-        ]);
-
         $user = User::findOrFail($id);
-        $user->name = $request->get('username');
-        $user->email = $request->get('email');
-        $user->phone = $request->get('phone');
-        if($request->get('ls_province')) {
-            $user->address = $request->get('ls_province'). ', ' . $request->get('ls_district') . ', '. $request->get('ls_ward');
-        }
-        $user->detail_address = $request->get('address');
-        if($request->get('password')){
-            $user->password = Hash::make($request->get('password'));
-        }
-        $user->save();
 
-        $user->assignRole($request->get('role'));
+        if($request->isMethod('post')) {
+            $request->validate([
+                'username' => 'required',
+                'phone' => 'required|numeric|min:10',
+                'password' => 'nullable|min:6',
+                'address' => 'required',
+                'role' => 'required',
+            ],[
+                'username.required' => 'Vui lòng nhập tên user',
+                'phone.required' => 'Vui lòng nhập số điện thoại',
+                'phone.numeric' => 'Sai định dạng chữ số',
+                'password.min' => 'Số ký tự nhập phải lớn hơn 6',
+                'address.required' => 'Vui lòng nhập địa chỉ',
+                'role.required' => 'Vui lòng chọn vai trò',
+            ]);
 
-        return redirect()->back()->with('success', 'Cập nhật user thành công');
+            $user->name = $request->get('username');
+            $user->email = $request->get('email');
+            $user->phone = $request->get('phone');
+            $user->reward_point = $request->get('reward_point');
+            if($request->get('province')) {
+                $user->address = $request->get('province'). ', ' . $request->get('district') . ', '. $request->get('ward');
+            }
+            $user->detail_address = $request->get('address');
+            if($request->get('password')){
+                $user->password = Hash::make($request->get('password'));
+            }
+            $user->save();
+
+            $user->assignRole($request->get('role'));
+            return redirect()->route('admin.user')->with('success', 'Cập nhật thông tin khách hàng thành công');
+        }
+
+        return view('admin.user.update', compact('user'));
     }
 
     public function delete(Request $request)
@@ -106,7 +107,7 @@ class UserController extends Controller
         if(!$request->get('listUser')) {
             return response()->json([
                 'success' => false,
-                'message' => 'Vui lòng chọn user cần xóa'
+                'message' => 'Vui lòng chọn khách hàng cần xóa'
             ]);
         }
 

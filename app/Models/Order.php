@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,6 +35,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  * @mixin \Eloquent
+ * @property int|null $classify_id
+ * @property-read \App\Models\Product|null $product
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereClassifyId($value)
  */
 class Order extends Model
 {
@@ -42,4 +46,18 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $guarded = ['id'];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        if($date) {
+            return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('H:i:s d-m-Y');
+        }
+
+        return null;
+    }
 }

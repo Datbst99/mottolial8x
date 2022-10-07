@@ -85,3 +85,10 @@
 }
 
 
+.disabled {
+    pointer-events: none;
+    color: rgb(198 185 185);
+}
+input[type=checkbox] {
+    transform: scale(1.3);
+}

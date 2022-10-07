@@ -35,7 +35,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
     Route::group(['prefix' => 'user'], function (){
         Route::get('/', [UserController::class, 'index'])->name('admin.user');
         Route::post('/store', [UserController::class, 'store'])->name('admin.user.store');
-        Route::post('/{id}/update', [UserController::class, 'update'])->name('admin.user.update');
+        Route::match(['post', 'get'],'/{id}/update', [UserController::class, 'update'])->name('admin.user.update');
         Route::get('/form-update', [UserController::class, 'formUpdate']);
         Route::post('/delete', [UserController::class, 'delete'])->name('admin.user.delete');
     });
@@ -65,6 +65,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
     Route::group(['prefix' => 'invoice'], function (){
         Route::get('/', [InvoiceController::class, 'index'])->name('invoice.index');
         Route::get('/create', [InvoiceController::class, 'create'])->name('invoice.create');
+        Route::get('/{id}/detail', [InvoiceController::class, 'detail'])->name('invoice.detail');
+        Route::post('/store', [InvoiceController::class, 'store'])->name('invoice.store');
+        Route::post('/delete', [InvoiceController::class, 'delete'])->name('invoice.delete');
+        Route::get('/{id}/change/{status}', [InvoiceController::class, 'change'])->name('invoice.change');
 
         Route::get('/user', [InvoiceController::class, 'user'])->name('invoice.user');
         Route::post('/product', [InvoiceController::class, 'product'])->name('invoice.product');

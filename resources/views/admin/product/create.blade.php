@@ -40,8 +40,24 @@
                     {!! Form::select('category', $categories, null, ['class' => 'form-control', 'placeholder' => '--Chọn danh mục--']) !!}
                 </div>
                 <div class="form-group">
-                    <label for="">Phân loại sản phẩm</label>
                     <div id="classify">
+                        <div class="d-flex justify-content-between wp-classify">
+                            <div class="item-add">
+                                Phân loại sản phẩm
+                            </div>
+                            <div class="item-add">
+                                Giá bán
+                            </div>
+                            <div class="item-add">
+                                Giá khuyến mại
+                            </div>
+                            <div class="item-add">
+                                Kho hàng
+                            </div>
+                            <div class="delete-item">
+
+                            </div>
+                        </div>
                         @include('admin.product._classify')
                     </div>
                     <div class="add-classify" onclick="addClassify()">

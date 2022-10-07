@@ -10,7 +10,7 @@
             <div class="modal-body" style="min-height: 200px">
                 <div class="form-group">
                     <label for="title">Tìm kiếm sản phẩm</label>
-                    <input type="text" class="form-control" name="classifyProduct" placeholder="Nhập tên sản phẩm hoặc mã sản phẩm..." onchange="searchProduct(this)">
+                    <input type="text" class="form-control" name="classifyProduct" placeholder="Nhập tên sản phẩm hoặc mã sản phẩm..." onkeyup="searchProduct(this)">
 
                 </div>
                 <div id="show-search-product" class="mb-3">

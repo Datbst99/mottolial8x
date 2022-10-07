@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table){
             $table->id();
+            $table->string('code')->unique();
             $table->unsignedBigInteger('user_id')->nullable();;
             $table->integer('total');
             $table->tinyInteger('status');

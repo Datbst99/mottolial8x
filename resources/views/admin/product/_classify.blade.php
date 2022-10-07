@@ -3,10 +3,10 @@
         <input type="text" name="classifyName[]" placeholder="Nhập tên phân loại" class="form-control">
     </div>
     <div class="item-add">
-        <input type="text" name="price[]" placeholder="Nhập giá sản phẩm" class="form-control">
+        <input type="number" name="price[]" placeholder="Nhập giá sản phẩm" class="form-control">
     </div>
     <div class="item-add">
-        <input type="text" name="sale_price[]" placeholder="Nhập giá khuyến mại" class="form-control">
+        <input type="number" name="sale_price[]" placeholder="Nhập giá khuyến mại" class="form-control">
     </div>
     <div class="item-add">
         <input type="number" name="amount[]" placeholder="Số lượng" class="form-control">

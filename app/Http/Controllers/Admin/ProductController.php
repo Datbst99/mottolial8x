@@ -106,13 +106,21 @@ class ProductController extends Controller
             'code' => 'required',
             'thumbnail' => 'required',
             'category' => 'required',
-            'classifyName.*' => 'required'
+            'classifyName.*' => 'required',
+            'price.*' => 'required|numeric',
+            'sale_price.*' => 'nullable|numeric',
+            'amount.*' => 'required|numeric',
         ], [
             'name.required' => 'Vui lòng nhập tên sản phẩm',
             'code.required' => 'Vui lòng nhập mã sản phẩm',
             'thumbnail.required' => 'Vui lòng thêm hình ảnh',
             'category.required' => 'Chọn hình ảnh',
             'classifyName.*.required' => 'Vui lòng nhập tên phân loại',
+            'price.*.required' => 'Vui lòng nhập giá sản phẩm',
+            'price.*.numeric' => 'Sai định dạng số',
+            'sale_price.*.numeric' => 'Sai định dạng số',
+            'amount.*.numeric' => 'Sai định dạng số',
+            'amount.*.required' => 'Vui lòng nhập số lượng sản phẩm',
         ]);
 
         $product = Product::findOrFail($id);

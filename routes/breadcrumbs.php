@@ -16,7 +16,10 @@ Breadcrumbs::for('admin.user', function (BreadcrumbTrail $trail){
     $trail->parent('admin.dashboard');
     $trail->push('Quản lý khách hàng', route('admin.user'));
 });
-
+Breadcrumbs::for('admin.user.update', function (BreadcrumbTrail $trail){
+    $trail->parent('admin.user');
+    $trail->push('Cập nhật thông tin khách hàng');
+});
 Breadcrumbs::for('admin.category', function (BreadcrumbTrail $trail){
     $trail->parent('admin.dashboard');
     $trail->push('Quản lý danh mục', route('category.index'));
@@ -39,7 +42,7 @@ Breadcrumbs::for('admin.product.edit', function (BreadcrumbTrail $trail){
 
 Breadcrumbs::for('admin.invoice', function (BreadcrumbTrail $trail){
     $trail->parent('admin.dashboard');
-    $trail->push('Quản lý đặt hàng', route('invoice.index'));
+    $trail->push('Quản lý đơn hàng', route('invoice.index'));
 });
 
 Breadcrumbs::for('admin.invoice.create', function (BreadcrumbTrail $trail){

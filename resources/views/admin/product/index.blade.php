@@ -7,34 +7,24 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <div class="card-title">Filters</div>
             <div>
                 {!! Form::open(['method' => 'get']) !!}
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
-{{--                            <div class="input-group">--}}
-{{--                                <div class="input-group-prepend">--}}
-{{--                                    <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>--}}
-{{--                                    <div class="dropdown-menu" style="">--}}
-{{--                                        <a class="dropdown-item" href="#">Action</a>--}}
-{{--                                        <a class="dropdown-item" href="#">Another action</a>--}}
-{{--                                        <a class="dropdown-item" href="#">Something else here</a>--}}
-{{--                                        <div role="separator" class="dropdown-divider"></div>--}}
-{{--                                        <a class="dropdown-item" href="#">Separated link</a>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                             <input type="text" class="form-control" placeholder="Nhập tên sản phẩm..." value="{{request()->get('search')}}" name="search">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             {!! Form::select('category', $categories, null, ['class' => 'form-control', 'placeholder' => '--Chọn danh mục--']) !!}
                         </div>
                     </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary btn-fw d-flex align-items-center justify-content-center"> <i class="mdi mdi-magnify" style="font-size: 18px"></i> Tìm kiếm</button>
+
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-fw d-flex align-items-center justify-content-center"> <i class="mdi mdi-magnify" style="font-size: 18px"></i> Tìm kiếm</button>
                 {!! Form::close() !!}
             </div>
         </div>

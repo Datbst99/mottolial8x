@@ -78,10 +78,11 @@ class Product extends Model
 
         $maxPrice = $this->classify()->orderByDesc('price')->first();
 
-        $showPrice = number_format($minPrice->price);
+
+        $showPrice = number_format($minPrice ? $minPrice->price : 0 );
 
         if($maxPrice) {
-            $showPrice = $showPrice . ' - ' . number_format($maxPrice->price);
+            $showPrice = $showPrice . ' - ' . number_format($maxPrice? $maxPrice->price : 0);
         }
 
         return $showPrice;
@@ -93,10 +94,10 @@ class Product extends Model
 
         $maxPrice = $this->classify()->orderByDesc('sale_price')->first();
 
-        $showPrice = number_format($minPrice->sale_price);
+        $showPrice = number_format($minPrice ? $minPrice->sale_price : 0);
 
         if($maxPrice) {
-            $showPrice = $showPrice . ' - ' . number_format($maxPrice->sale_price);
+            $showPrice = $showPrice . ' - ' . number_format($maxPrice ? $maxPrice->sale_price : 0);
         }
 
         return $showPrice;

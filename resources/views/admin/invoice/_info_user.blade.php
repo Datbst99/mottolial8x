@@ -22,10 +22,20 @@
     <div class="col-md-6">
         <div class="information-user">
             <div class="text-show">
+                Tỉnh/Quận-Huyện/Phường-Xã:
+            </div>
+            <div class="text-user">
+                {{ isset($user) ? $user->address : ''}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="information-user">
+            <div class="text-show">
                 Địa chỉ:
             </div>
             <div class="text-user">
-                {{ isset($user) ? $user->detail_phone : ''}}
+                {{ isset($user) ? $user->detail_address : ''}}
             </div>
         </div>
     </div>
@@ -49,4 +59,5 @@
             </div>
         </div>
     </div>
+    <input type="text" name="user" value="{{ isset($user) ? $user->id : '' }}" class="d-none">
 </div>
