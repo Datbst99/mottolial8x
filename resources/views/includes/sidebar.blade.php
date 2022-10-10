@@ -4,20 +4,20 @@
         <a class="sidebar-brand brand-logo-mini" href=""><img src="/assets/images/logo_motto.png" alt="logo" /></a>
     </div>
     <ul class="nav" style="position: fixed">
-        <li class="nav-item profile">
-            <div class="profile-desc">
-                <div class="profile-pic">
-                    <div class="count-indicator">
-                        <img class="img-xs rounded-circle " src="/assets/images/faces/face15.jpg" alt="">
-                        <span class="count bg-success"></span>
-                    </div>
-                    <div class="profile-name">
-                        <h5 class="mb-0 font-weight-normal">{{auth()->user()->name}}</h5>
-                    </div>
-                </div>
+{{--        <li class="nav-item profile">--}}
+{{--            <div class="profile-desc">--}}
+{{--                <div class="profile-pic">--}}
+{{--                    <div class="count-indicator">--}}
+{{--                        <img class="img-xs rounded-circle " src="/assets/images/faces/face15.jpg" alt="">--}}
+{{--                        <span class="count bg-success"></span>--}}
+{{--                    </div>--}}
+{{--                    <div class="profile-name">--}}
+{{--                        <h5 class="mb-0 font-weight-normal">{{auth()->user()->name}}</h5>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-            </div>
-        </li>
+{{--            </div>--}}
+{{--        </li>--}}
 
         <li class="nav-item menu-items {{active('admin.dashboard')}}">
             <a class="nav-link" href="{{route('admin.dashboard')}}">

@@ -55,7 +55,6 @@
       }
     }
   }
-
   .nav {
     overflow: hidden;
     flex-wrap: nowrap;
@@ -80,13 +79,13 @@
         @include align-items(center);
         white-space: nowrap;
         padding: $sidebar-menu-padding-y 10px $sidebar-menu-padding-y $sidebar-menu-padding-x;
-        color: $sidebar-dark-menu-color;
+        color: #6c7293a8;
         @include transition-duration(0.45s);
         transition-property: color;
         -webkit-transition-property: color;
         height: 46px;
         border-radius: 0px 100px 100px 0px;
-
+        font-weight: 700;
         i {
           color: inherit;
           &.menu-icon {
@@ -319,16 +318,16 @@
         margin-right: 0.5rem;
         font-size: 0.8125rem;
         line-height: 1;
-        background: rgba($text-muted, 0.2);
+        //background: rgba($text-muted, 0.2);
         width: 31px;
         height: 31px;
         border-radius: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #ffffff;
+        color: gray;
         i {
-          font-size: 0.875rem;
+          font-size: 1rem;
         }
       }
     }
@@ -348,6 +347,7 @@
           line-height: 1;
           height: auto;
           border-top: 0;
+          font-weight: 400;
           &.active {
             color: $sidebar-dark-menu-active-color;
             background: transparent;
@@ -373,57 +373,7 @@
         }
       }
     }
-      .menu-items {
-        &:nth-child(5n+1) {
-          .nav-link {
-            .menu-icon {
-              i {
-                color: theme-color(primary);
-              }
-            }
-          }
-        }
 
-        &:nth-child(5n+2) {
-          .nav-link {
-            .menu-icon {
-              i {
-                color: theme-color(success);
-              }
-            }
-          }
-        }
-
-        &:nth-child(5n+3) {
-          .nav-link {
-            .menu-icon {
-              i {
-                color: theme-color(info);
-              }
-            }
-          }
-        }
-
-        &:nth-child(5n+4) {
-          .nav-link {
-            .menu-icon {
-              i {
-                color: theme-color(warning);
-              }
-            }
-          }
-        }
-
-        &:nth-child(5n+5) {
-          .nav-link {
-            .menu-icon {
-              i {
-                color: theme-color(danger);
-              }
-            }
-          }
-        }
-      }
 
 
 
@@ -461,7 +411,7 @@
           color: $sidebar-tinted-menu-color;
           .menu-icon {
             i {
-              color: white;
+              color: gray;
             }
           }
           i {
