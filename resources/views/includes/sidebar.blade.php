@@ -3,7 +3,7 @@
         <a class="sidebar-brand brand-logo" href=""><img src="/assets/images/logo_motto.png" alt="logo" /></a>
         <a class="sidebar-brand brand-logo-mini" href=""><img src="/assets/images/logo_motto.png" alt="logo" /></a>
     </div>
-    <ul class="nav" style="position: fixed">
+    <ul class="nav mt-3" style="position: fixed">
 {{--        <li class="nav-item profile">--}}
 {{--            <div class="profile-desc">--}}
 {{--                <div class="profile-pic">--}}
