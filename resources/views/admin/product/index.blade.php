@@ -81,7 +81,9 @@
                                 <td class="text-nowrap">{{$product->createBy()}}</td>
                                 <td class="text-nowrap">{{$product->created_at}}</td>
                                 <td class="text-center">
-                                    <a href="{{route('product.edit', ['id' => $product->id])}}"><i class="mdi mdi-border-color"></i></a>
+                                    <span style="font-size: 22px; cursor: pointer" onclick="copyLink('{{route('detail', ['slug' => $product->slug])}}')"><i class="mdi mdi-link"></i></span>
+                                    <a style="font-size: 18px" href="{{route('product.edit', ['id' => $product->id])}}"><i class="mdi mdi-border-color"></i></a>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -138,6 +140,13 @@
             }).fail(function (xhr) {
 
             })
+        }
+
+        function copyLink(text) {
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(text);
+            notification('Sao chép link thành công', 'success')
         }
     </script>
 @stop
