@@ -5,7 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail</title>
+    <title>{{$product->name}}</title>
+    <meta name="robots" content="noindex">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/vendors/slick/slick.css" type="text/css" >
     <link rel="stylesheet" href="/assets/vendors/awesome/css/all.css" type="text/css" >
