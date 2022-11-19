@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ProductClassify whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductClassify whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $thumbnail
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductClassify whereThumbnail($value)
  */
 class ProductClassify extends Model
 {

@@ -17,10 +17,7 @@
                     <label for="">Code</label>
                     <input type="text" name="code" class="form-control" placeholder="Nhập mã sản phẩm" value="{{old('code')}}">
                 </div>
-                <div class="form-group">
-                    <label for="description">Mô tả</label>
-                    <textarea name="description" id="description" class="form-control" rows="5" placeholder="Nhập mô tả" value="{{old('description')}}"></textarea>
-                </div>
+
                 <div class="form-group">
                     <label for="">Hình ảnh</label>
 
@@ -40,6 +37,11 @@
                     {!! Form::select('category', $categories, null, ['class' => 'form-control', 'placeholder' => '--Chọn danh mục--']) !!}
                 </div>
                 <div class="form-group">
+                    <label for="description">Mô tả</label>
+                    <textarea name="description" id="description" class="form-control" rows="5" placeholder="Nhập mô tả">{!! old('description') !!}</textarea>
+                </div>
+
+                <div class="form-group">
                     <div id="classify">
                         <div class="d-flex justify-content-between wp-classify">
                             <div class="item-add">
@@ -53,6 +55,9 @@
                             </div>
                             <div class="item-add">
                                 Kho hàng
+                            </div>
+                            <div class="item-add">
+                                Hình ảnh
                             </div>
                             <div class="delete-item">
 
@@ -76,6 +81,7 @@
 @endsection
 
 @section('script')
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.1/classic/ckeditor.js"></script>
     {!! Html::script('/assets/vendors/ckfinder/ckfinder.js') !!}
     <script>
         var button1 = document.getElementById('btn_file_add');
@@ -115,6 +121,37 @@
             })
         }
 
+        function selectImg(obj) {
+            CKFinder.modal({
+                chooseFiles: true,
+                width: 800,
+                height: 600,
+                onInit: function (finder) {
+                    finder.on('files:choose', function (evt) {
+                        var url = '';
+                        for (i = 0; i < evt.data.files.models.length; i++) {
+                            var file = evt.data.files.models[i];
+                            var tempurl = file.getUrl();
+                            url += tempurl;
+                        }
+                        $(obj).val(url)
+                    });
+                    finder.on('file:choose:resizedImage', function (evt) {
+                        var url = '';
+                        for (i = 0; i < evt.data.files.models.length; i++) {
+                            var file = evt.data.files.models[i];
+                            var tempurl = file.getUrl();
+                            url += tempurl;
+                        }
+                        var output = document.getElementById(elementId);
+                        output.value = url;
+                        $('#btn_file_add').attr('src', url)
+                    });
+                }
+            })
+        }
+
+
         function addClassify() {
             $.ajax({
                 url: '/admin/product/classify',
@@ -136,5 +173,57 @@
             }
         }
 
+    </script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#description' ), {
+                toolbar: [
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    'underline',
+                    'strikethrough',
+                    'removeFormat',
+                    '|',
+                    'fontSize',
+                    'fontFamily',
+                    'fontBackgroundColor',
+                    'fontColor',
+                    '|',
+                    'link',
+                    'numberedList',
+                    'bulletedList',
+                    '|',
+                    'indent',
+                    'outdent',
+                    'alignment',
+                    'fontBackgroundColor',
+                    'fontColor',
+                    '|',
+                    'CKFinder',
+                    // 'imageUpload',
+                    'blockQuote',
+                    'insertTable',
+                    'htmlEmbed',
+                    'codeBlock',
+                    '|',
+                    'horizontalLine',
+                    'pageBreak',
+                    'mediaEmbed',
+                    '|',
+                    'specialCharacters',
+                    '|',
+                    'undo',
+                    'redo'
+                ],
+
+                ckfinder:{
+                    uploadUrl: '/ckfinder/connector?command=QuickUpload&type=Images&responseType=json',
+                },
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
     </script>
 @stop

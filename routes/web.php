@@ -6,6 +6,7 @@ use \App\Http\Controllers\Admin\CategoryController;
 use \App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Admin\InvoiceController;
 use \App\Http\Controllers\Admin\PromotionController;
+use \App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,16 +18,13 @@ use \App\Http\Controllers\Admin\PromotionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-
-
+Route::get('/san-pham/{slug}', [HomeController::class, 'detail'])->name('detail');
+Route::post('/order', [HomeController::class, 'order'])->name('order');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function (){
 

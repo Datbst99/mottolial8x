@@ -11,6 +11,9 @@
     <div class="item-add">
         <input type="number" name="amount[]" placeholder="Số lượng" class="form-control">
     </div>
+    <div class="item-add">
+        <input type="text" name="images[]" placeholder="Hình ảnh sản phẩm" class="form-control" onclick="selectImg(this)">
+    </div>
     <div class="delete-item" onclick="deleteItem(this)">
         <i class="mdi mdi-delete"></i>
     </div>

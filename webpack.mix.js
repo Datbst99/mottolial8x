@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
     .sourceMaps();
 
 mix.sass('resources/assets/sass/style.scss', 'public/assets/css')
+    .sass('resources/assets/sass/client/detail.scss', 'public/assets/css/client')
     .copy('resources/assets/images', 'public/assets/images')
     .copy('resources/assets/vendors', 'public/assets/vendors')
     .copy('resources/assets/js', 'public/assets/js')

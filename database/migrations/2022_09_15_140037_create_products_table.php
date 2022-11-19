@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');
+            $table->string('slug');
             $table->unsignedBigInteger('category_id')->nullable();
             $table->string('thumbnail');
             $table->text('description')->nullable();
@@ -35,6 +36,7 @@ class CreateProductsTable extends Migration
             $table->integer('price')->nullable();
             $table->integer('sale_price')->nullable();
             $table->integer('amount')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->tinyInteger('status')->nullable();
             $table->timestamps();
             $table->index('status');

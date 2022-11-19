@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,20 +36,42 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductClassify[] $classify
  * @property-read int|null $classify_count
  * @property-read \App\Models\User|null $user
+ * @property string $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Product findSimilarSlugs(string $attribute, array $config, string $slug)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  */
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
     protected $table = 'products';
 
     protected $guarded = ['id'];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 
     public function classify()
     {
         return $this->hasMany(ProductClassify::class, 'product_id');
     }
 
+    public function firstClassify()
+    {
+        return $this->classify()->orderBy('price')->first();
+    }
 
     public function user()
     {

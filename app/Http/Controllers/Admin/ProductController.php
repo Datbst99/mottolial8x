@@ -48,18 +48,15 @@ class ProductController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'code' => 'required',
             'thumbnail' => 'required',
             'category' => 'required',
             'classifyName.*' => 'required'
         ], [
             'name.required' => 'Vui lòng nhập tên sản phẩm',
-            'code.required' => 'Vui lòng nhập mã sản phẩm',
             'thumbnail.required' => 'Vui lòng thêm hình ảnh',
             'category.required' => 'Chọn hình ảnh',
             'classifyName.*.required' => 'Vui lòng nhập tên phân loại',
         ]);
-
         $product = new Product();
         $product->name = $request->get('name');
         $product->code = $request->get('code');
@@ -74,6 +71,7 @@ class ProductController extends Controller
         $classifyPrice = $request->get('price');
         $classifySale = $request->get('sale_price');
         $classifyAmount = $request->get('amount');
+        $classifyImages = $request->get('images');
 
         foreach ($classifyName as $key => $val) {
             $classify = new ProductClassify();
@@ -82,6 +80,7 @@ class ProductController extends Controller
             $classify->price = $classifyPrice[$key];
             $classify->sale_price = $classifySale[$key];
             $classify->amount = $classifyAmount[$key];
+            $classify->thumbnail = $classifyImages[$key];
             $classify->status = 1;
             $classify->save();
         }
@@ -103,7 +102,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'code' => 'required',
+//            'code' => 'required',
             'thumbnail' => 'required',
             'category' => 'required',
             'classifyName.*' => 'required',
@@ -136,7 +135,7 @@ class ProductController extends Controller
         $classifyPrice = $request->get('price');
         $classifySale = $request->get('sale_price');
         $classifyAmount = $request->get('amount');
-
+        $classifyImages = $request->get('images');
         ProductClassify::where('product_id', $id)->delete();
 
         foreach ($classifyName as $key => $val) {
@@ -146,6 +145,7 @@ class ProductController extends Controller
             $classify->price = $classifyPrice[$key];
             $classify->sale_price = $classifySale[$key];
             $classify->amount = $classifyAmount[$key];
+            $classify->thumbnail = $classifyImages[$key];
             $classify->status = 1;
             $classify->save();
         }
