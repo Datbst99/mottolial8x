@@ -86,5 +86,13 @@
                 <span class="menu-title">Quản lý khách hàng</span>
             </a>
         </li>
+        <li class="nav-item menu-items {{ active('admin.order') }}">
+            <a class="nav-link" href="{{route('admin.order')}}">
+                <span class="menu-icon">
+                <i class="mdi mdi-cart-plus"></i>
+              </span>
+                <span class="menu-title">Đơn đặt hàng landing</span>
+            </a>
+        </li>
     </ul>
 </nav>

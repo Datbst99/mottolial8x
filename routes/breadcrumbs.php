@@ -54,3 +54,8 @@ Breadcrumbs::for('admin.promotion', function (BreadcrumbTrail $trail){
     $trail->parent('admin.dashboard');
     $trail->push('Chương trình khuyễn mãi', route('promotion.index'));
 });
+
+Breadcrumbs::for('admin.order', function (BreadcrumbTrail $trail){
+    $trail->parent('admin.dashboard');
+    $trail->push('Đơn đặt hàng landing');
+});

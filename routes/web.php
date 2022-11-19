@@ -84,6 +84,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         Route::post('/delete', [PromotionController::class, 'delete'])->name('promotion.delete');
         Route::get('/form/update', [PromotionController::class, 'formUpdate']);
     });
+    Route::get('/order', [\App\Http\Controllers\Admin\OrderLandingController::class, 'index'])->name('admin.order');
 });
 
 
