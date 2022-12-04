@@ -54,7 +54,7 @@
                             <input type="checkbox" class="" id="checkAll">
                         </th>
                         <th>Mã đơn hàng</th>
-                        <th>Hình ảnh</th>
+{{--                        <th>Hình ảnh</th>--}}
                         <th>Tên khách hàng</th>
                         <th>Tổng đơn hàng</th>
                         <th>Trạng thái</th>
@@ -75,9 +75,9 @@
                                <td class="text-nowrap">
                                    #{{$invoice->code}}
                                </td>
-                               <td class="text-nowrap">
-                                   <img src="{{$invoice->thumbnail()}}" alt="" style="width: 60px; height: 60px">
-                               </td>
+{{--                               <td class="text-nowrap">--}}
+{{--                                   <img src="{{$invoice->thumbnail()}}" alt="" style="width: 60px; height: 60px">--}}
+{{--                               </td>--}}
                                <td class="text-nowrap">
                                    {{$invoice->user->name}}
                                </td>

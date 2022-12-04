@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{$product->name}}</title>
     <meta name="robots" content="noindex">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/vendors/slick/slick.css" type="text/css" >
     <link rel="stylesheet" href="/assets/vendors/awesome/css/all.css" type="text/css" >
     <link rel="stylesheet" href="{{mix('/assets/css/client/detail.css')}}">
@@ -47,13 +47,18 @@ $firstProduct = $product->firstClassify()
                 <div class="color-classify showPopJs"> Màu sắc kích cỡ <i class="fal fa-angle-right icon-arrow"></i> </div>
             </div>
             <div class="line-box"></div>
-            <div class="d-flex box-item">
-                <img src="/assets/images/shop.png" alt="" class="shop-img">
-                <div style="margin-left: 10px; margin-top: 5px">
-                    HUSSIO
-                    <p class="m-0" style="font-size: 12px; color: rgba(22, 24, 35, 0.5);">
-                        52 sản phẩm
-                    </p>
+            <div class="box-item d-flex justify-content-between" style="align-items: center">
+                <div class="d-flex">
+                    <img src="/assets/images/shop.png" alt="" class="shop-img">
+                    <div style="margin-left: 10px; margin-top: 5px">
+                        HUSSIO
+                        <p class="m-0" style="font-size: 12px; color: rgba(22, 24, 35, 0.5);">
+                            52 sản phẩm
+                        </p>
+                    </div>
+                </div>
+                <div class="access" style="font-weight: 600">
+                    Truy cập
                 </div>
             </div>
             <div class="line-box"></div>
@@ -89,14 +94,14 @@ $firstProduct = $product->firstClassify()
                         <img src="{{$firstProduct->thumbnail}}" alt="{{$firstProduct->name}}" class="select-image">
                         <div class="show-price">
                             <div>
-                                <div class="sale-price" id="saleJs">{{number_format($firstProduct->sale_price)}}đ</div>
+                                <div class="sale-price" id="saleJs" style="color: #fe2c55">{{number_format($firstProduct->sale_price)}}đ</div>
                                 <div class="">
                                     <span class="price" id="priceJs">{{number_format($firstProduct->price)}}đ</span>
                                     <span class="ratio-price" id="ratioJs"> {{round($firstProduct->sale_price / $firstProduct->price * 100, 0)}}% </span>
                                 </div>
                             </div>
                             <div class="color">
-                                <span class="color-name">{{$firstProduct->name}}</span> <span class="color-size"></span>
+                                <span class="color-name">{{$firstProduct->name}}</span><span class="color-size">, M</span>
                             </div>
                         </div>
 
@@ -164,6 +169,12 @@ $firstProduct = $product->firstClassify()
                         <label for="" class="title-classify">Số điện thoại</label>
                         <input type="text" name="phone" class="form-control" required>
                     </div>
+                    <div class="group-control">
+                        <label for="" class="title-classify">Địa chỉ</label>
+                        <textarea class="form-control" rows="3" name="address">
+
+                        </textarea>
+                    </div>
                 </div>
                 <button class="btn-submit" type="submit">
                     Đặt hàng ngay
@@ -179,9 +190,10 @@ $firstProduct = $product->firstClassify()
 
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    {!! Html::script(mix('js/vietnamlocalselector.js')) !!}
     <script type="text/javascript" src="/assets/vendors/slick/slick.js"></script>
     <script>
-
+        LocalPicker()
         function renderImage(img, price, sale, id) {
             document.getElementsByClassName('select-image')[0].setAttribute("src", img)
             document.getElementById('saleJs').innerText =  formatNumber(sale)+ 'đ'
@@ -223,7 +235,7 @@ $firstProduct = $product->firstClassify()
             });
 
             $("input[name='size']").change(function () {
-                $('.color-size').text(', ' + $("input[name='size']:checked").val())
+                $('.color-size').text(", " +  $("input[name='size']:checked").val())
             })
             $("input[name='color']").change(function () {
                 $('.color-name').text($("input[name='color']:checked").val())

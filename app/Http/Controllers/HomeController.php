@@ -48,6 +48,7 @@ class HomeController extends Controller
         $newOrder->price = $classify->price;
         $newOrder->sale = $classify->sale_price;
         $newOrder->phone = $request->get('phone');
+        $newOrder->address = $request->get('address');
         $newOrder->amount = $request->get('amount');
         $newOrder->size = $request->get('size');
         $newOrder->color = $request->get('color');

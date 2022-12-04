@@ -43,15 +43,19 @@ class Invoice extends Model
     const STATUS_TRANSPORT = 'transport';
     const STATUS_PAID = 'paid';
 
-    public function classify()
+    public function order()
     {
         return $this->hasMany(Order::class, 'invoice_id');
     }
 
-    public function thumbnail()
-    {
-        return $this->classify()->first()->product->thumbnail;
-    }
+//    public function thumbnail()
+//    {
+//
+//        if($this->classify()->first() && $this->classify()->first()->product) {
+//            return $this->classify()->first()->product->thumbnail;
+//        }
+//        return '--';
+//    }
 
     public function user()
     {
